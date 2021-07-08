@@ -10,15 +10,14 @@
                 "https://www.amazon.com/*"
             ],
             "js":[
-                
                 "content.js"
             ]
         }
     ],
+    
     "permissions":[
         "https://www.amazon.in/*",
         "https://www.amazon.com/*"
-
     ],
     "background":{
         "scripts":[
