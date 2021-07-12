@@ -1,5 +1,9 @@
-//console.log("content file is running")
-let amazonextension = angular.module("amazonextension", ['ui.router']);
+console.log("content file is running");
+
+
+
+
+    let amazonextension = angular.module("amazonextension", ['ui.router']);
 amazonextension.config([
     '$stateProvider',
     '$urlRouterProvider',
@@ -7,10 +11,14 @@ amazonextension.config([
     
       $stateProvider
         .state('home', {
-          url: '/home',
+          url: '/',
           templateUrl: '/home.html',
           controller: 'MainCtrl'
         });
     
       $urlRouterProvider.otherwise('home');
     }]);
+
+  
+
+

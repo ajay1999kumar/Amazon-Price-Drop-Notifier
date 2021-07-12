@@ -10,6 +10,8 @@
                 "https://www.amazon.com/*"
             ],
             "js":[
+               
+                "jquery.js",
                 "content.js"
             ]
         }
@@ -18,6 +20,8 @@
     "permissions":[
         "https://www.amazon.in/*",
         "https://www.amazon.com/*"
+       
+        
     ],
     "background":{
         "scripts":[
@@ -36,7 +40,9 @@
         "default_icon":"amazon_icon_16.png",
         "default_popup":"popup.html"
      
-    }
+    },
+    "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com; object-src 'self'"
+    
 
 
 }

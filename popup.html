@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
+      
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.29/angular-ui-router.min.js"></script>
+        <script src="jquery.js"></script>
+        <script src = "content.js"></script>
+
         <title>amazon chrome extension</title> 
         
     </head>
     <body ng-app="amazonextesion">
         <h2>hello chrome extension</h2>   
-        <ui-view></ui-view>
+        <input type="submit" id="btn" value="Click!">
+        <div ui-view></div>
+        
     </body>   
 
     <footer>
-        <script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
-        <script src="js/main.js"></script>
-        <script src= https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js ></script>
-        <script src= https://cdnjs.com/libraries/angular-ui-router ></script>
+       
     </footer>
 
 </html>   
