@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ajay1999kumar/Amazon-Price-Drop-Notifier#readme",
   "dependencies": {
+    "angular-ui-router": "^1.0.29",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
