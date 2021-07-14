@@ -14,7 +14,31 @@ amazone.config([
           url: '/',
           templateUrl: '/home.html',
           controller: 'MainCtrl'
-        });
+        })
+        .state('login', {
+          url: '/login',
+          templateUrl: '/login.html',
+          controller: 'LoginController'
+        });;
     
-      $urlRouterProvider.otherwise('/');
+      $urlRouterProvider.otherwise('/login');
     }]);
+
+    var userName;
+    var userPassword;
+    var user={
+      userName,
+      userPassword
+    }
+
+    amazone.controller('LoginController',['$scope',function($scope){
+      
+
+      $scope.userData=function(name,pass){
+        user.userName=name;
+        user.userPassword=pass;
+       
+        console.log(user);
+
+      };
+    }])
