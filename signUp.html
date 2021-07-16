@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="login.css">
+    </head>
+    <body>
+        <div class="login-page">
+            <div class="form">
+              <form class="register-form">
+                <input ng-model="name" type="text" placeholder="name"/>
+                <input ng-model="password" type="password" placeholder="password"/>
+                <input ng-model="email" type="email" placeholder="email address"/>
+                <button ng-click="NewUserData(name,password,email)">create</button>
+                <p class="message">Already registered? <a href="popup.html#/login">Sign In</a></p>
+              </form>
+            </div>
+        </div>
+    </body>
+</html>

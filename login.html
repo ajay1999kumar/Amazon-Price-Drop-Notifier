@@ -9,10 +9,10 @@
         <div class="login-page">
             <div class="form">
               <form class="login-form">
-                <input type="text" placeholder="username"/>
-                <input type="password" placeholder="password"/>
-                <button>login</button>
-                <p class="message">Not registered? <a href="#">Create an account</a></p>
+                <input ng-model="email" type="email" placeholder="email"/>
+                <input ng-model=" password" type="password" placeholder="password"/>
+                <button ng-click="userData(email,password)">login</button>
+                <p class="message">Not registered? <a href="popup.html#/signup">Create an account</a></p>
               </form>
             </div>
         </div>

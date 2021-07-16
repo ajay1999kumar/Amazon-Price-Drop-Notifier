@@ -19,23 +19,51 @@ amazone.config([
           url: '/login',
           templateUrl: '/login.html',
           controller: 'LoginController'
-        });;
+        })
+        .state('signup', {
+          url: '/signup',
+          templateUrl: '/signUp.html',
+          controller: 'SignupController'
+        });
     
       $urlRouterProvider.otherwise('/login');
     }]);
 
-    var userName;
+    var userEmail;
     var userPassword;
     var user={
-      userName,
+      userEmail,
       userPassword
     }
+
+    var NewUserName;
+    var NewUserEmail;
+    var NewUserPassword;
+    var NewUser={
+      NewUserName,
+      NewUserEmail,
+      NewUserPassword
+
+    }
+
+    amazone.controller('SignupController',['$scope',function($scope){
+      
+
+      $scope.NewUserData=function(name,pass,email){
+      NewUser.NewUserName=name,
+      NewUser.NewUserEmail=email,
+      NewUser.NewUserPassword=pass
+       
+        console.log(NewUser);
+
+      };
+    }])
 
     amazone.controller('LoginController',['$scope',function($scope){
       
 
-      $scope.userData=function(name,pass){
-        user.userName=name;
+      $scope.userData=function(email,pass){
+        user.userEmail=email;
         user.userPassword=pass;
        
         console.log(user);
