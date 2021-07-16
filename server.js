@@ -1,18 +1,24 @@
 const express=require('express');
-const mongoose = require('mongoose');
 const cors=require('cors');
+const bodyParser = require("body-parser");
+const user = require("./databaseconnection/user"); 
+const InitiateMongoServer = require("./databaseconnection/db");
 
-const url = "mongodb+srv://price_db:priceDetails@pricedetails.li01v.mongodb.net/price_db?retryWrites=true&w=majority const"
+
+InitiateMongoServer();
+
 const app=express();
 
 app.use(cors());
 app.use(express.urlencoded());
 app.use(express.json());
+app.use(bodyParser.json());
 
-///////////////////////////////////////////////////////----------server setup-----------------------/////////////////////////////
+
 app.get('/',function(req,res){
     res.send('Hello world!');
 });
+app.use("/user", user);
 
 app.post('/products',function(req,res){
     console.log(req.body);
@@ -23,19 +29,3 @@ app.post('/products',function(req,res){
 app.listen(3000,function(){
     console.log('server is started in port 3000...');
 });
-//////////////////////////////////////////////////////-----------Database Connection------------///////////////////////////////////////////
-
-mongoose.connect(url,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: true
-    })
-    .then(() => {
-      console.log('Connected to database !!');
-    })
-    .catch((err)=>{
-      console.log('Connection failed !!'+ err.message);
-    });
-    
