@@ -56,6 +56,11 @@ amazone.config([
        
         console.log(NewUser);
 
+        
+        chrome.runtime.sendMessage({NewUser:NewUser},function(response){
+          console.log(response.msg);
+        })
+
       };
     }])
 
@@ -67,6 +72,10 @@ amazone.config([
         user.userPassword=pass;
        
         console.log(user);
+
+        chrome.runtime.sendMessage({user:user},function(response){
+          console.log(response.msg);
+        })
 
       };
     }])
