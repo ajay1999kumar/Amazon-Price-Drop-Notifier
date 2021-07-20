@@ -1,7 +1,7 @@
 const express=require('express');
 const cors=require('cors');
 const bodyParser = require("body-parser");
-const user = require("./databaseconnection/user"); 
+const user = require("./databaseconnection/routes/user"); 
 const InitiateMongoServer = require("./databaseconnection/db");
 
 
@@ -20,7 +20,12 @@ app.get('/',function(req,res){
 });
 app.use("/user", user);
 
-app.post('/products',function(req,res){
+app.post('/login',function(req,res){
+    console.log(req.body);
+    res.send(req.body);
+
+});
+app.post('/signup',function(req,res){
     console.log(req.body);
     res.send(req.body);
 

@@ -1,8 +1,8 @@
 
 console.log("background file is running")
 
-var sampleData="hwllo everyone";
-    
+var sampleData;
+var jqxhr;
 
 
 //Receiving existing user from popup.js=============================================
@@ -10,7 +10,14 @@ var sampleData="hwllo everyone";
 chrome.runtime.onMessage.addListener(
     function(request,sender,senderResponse){
         if(request.user!=null)
-        {
+        {   
+            sampleData=request.user;
+            jqxhr=$.ajax({
+                type:"POST",
+                url:" http://localhost:3000/user/login",
+                processData:false,
+                data:sampleData,
+            })
             console.log(request.user);
             senderResponse({msg:"background script received msg successfully"});
             return true;
@@ -25,7 +32,14 @@ chrome.runtime.onMessage.addListener(
     function(request,sender,senderResponse){
         if(request.NewUser!=null)
         {
-            console.log(request.NewUser);
+            sampleData=request.NewUser;
+            jqxhr=$.ajax({
+                type:"POST",
+                url:" http://localhost:3000/user/signup",
+                processData:false,
+                data:sampleData,
+            })
+            console.log(sampleData);
             senderResponse({msg:"background script received msg successfully"});
             return true;
         }
@@ -35,13 +49,7 @@ chrome.runtime.onMessage.addListener(
 
 // sending data(post request) from background to server =============================================
 
-var jqxhr=$.ajax({
-    type:"POST",
-    url:" http://localhost:3000/products",
-    processData:false,
-    data:sampleData,
-})
-.done(function(data){
+jqxhr.done(function(data){
     console.log("data is successfully send from background script to server"+data);
 })
 .fail(function(xhr,statusCode,err){
