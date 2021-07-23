@@ -10,26 +10,16 @@ InitiateMongoServer();
 const app=express();
 
 app.use(cors());
-app.use(express.urlencoded());
-app.use(express.json());
 app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 
 
 app.get('/',function(req,res){
     res.send('Hello world!');
 });
 app.use("/user", user);
-
-app.post('/login',function(req,res){
-    console.log(req.body);
-    res.send(req.body);
-
-});
-app.post('/signup',function(req,res){
-    console.log(req.body);
-    res.send(req.body);
-
-});
 
 app.listen(3000,function(){
     console.log('server is started in port 3000...');

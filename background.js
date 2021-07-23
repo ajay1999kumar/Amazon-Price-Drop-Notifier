@@ -14,10 +14,18 @@ chrome.runtime.onMessage.addListener(
             sampleData=request.user;
             jqxhr=$.ajax({
                 type:"POST",
-                url:" http://localhost:3000/user/login",
+                url:"/user/login",
                 processData:false,
-                data:sampleData,
+                contentType: 'application/json',
+                data:request.user,
+                dataType: "json",
+            }).done(function(data){
+                console.log("data is successfully send from background script to server"+data);
             })
+            .fail(function(xhr,statusCode,err){
+                console.log("error in sending data",statusCode);
+                console.log(err);
+            });
             console.log(request.user);
             senderResponse({msg:"background script received msg successfully"});
             return true;
@@ -35,10 +43,18 @@ chrome.runtime.onMessage.addListener(
             sampleData=request.NewUser;
             jqxhr=$.ajax({
                 type:"POST",
-                url:" http://localhost:3000/user/signup",
+                url:"/user/signup",
                 processData:false,
+                contentType: 'application/json',
                 data:sampleData,
+                dataType: "json",
+            }).done(function(data){
+                console.log("data is successfully send from background script to server"+data);
             })
+            .fail(function(xhr,statusCode,err){
+                console.log("error in sending data",statusCode);
+                console.log(err);
+            });
             console.log(sampleData);
             senderResponse({msg:"background script received msg successfully"});
             return true;
@@ -48,12 +64,4 @@ chrome.runtime.onMessage.addListener(
 );
 
 // sending data(post request) from background to server =============================================
-
-jqxhr.done(function(data){
-    console.log("data is successfully send from background script to server"+data);
-})
-.fail(function(xhr,statusCode,err){
-    console.log("error in sending data",statusCode);
-    console.log(err);
-});
 
