@@ -1,6 +1,23 @@
 console.log("content file is running");
 
 
+var username;
+var email;
+var password;
+
+var NewUser={
+   username,
+   email,
+   password
+
+}
+
+
+var user={
+ email,
+ password
+}
+
 
 
 let amazone = angular.module("amazonextension", ['ui.router']);
@@ -29,30 +46,16 @@ amazone.config([
       $urlRouterProvider.otherwise('/login');
     }]);
 
-    var userEmail;
-    var userPassword;
-    var user={
-      userEmail,
-      userPassword
-    }
+    
 
-    var NewUserName;
-    var NewUserEmail;
-    var NewUserPassword;
-    var NewUser={
-      NewUserName,
-      NewUserEmail,
-      NewUserPassword
-
-    }
 
     amazone.controller('SignupController',['$scope',function($scope){
       
 
       $scope.NewUserData=function(name,pass,email){
-      NewUser.NewUserName=name,
-      NewUser.NewUserEmail=email,
-      NewUser.NewUserPassword=pass
+      NewUser.username=name,
+      NewUser.email=email,
+      NewUser.password=pass
        
         console.log(NewUser);
 
@@ -68,8 +71,8 @@ amazone.config([
       
 
       $scope.userData=function(email,pass){
-        user.userEmail=email;
-        user.userPassword=pass;
+        user.email=email;
+        user.password=pass;
        
         console.log(user);
 

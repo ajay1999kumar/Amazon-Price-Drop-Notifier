@@ -1,8 +1,9 @@
 
 console.log("background file is running")
 
-var sampleData;
+
 var jqxhr;
+var jxhr;
 
 
 //Receiving existing user from popup.js=============================================
@@ -11,13 +12,13 @@ chrome.runtime.onMessage.addListener(
     function(request,sender,senderResponse){
         if(request.user!=null)
         {   
-            sampleData=request.user;
+            var user=JSON.stringify(request.user);
             jqxhr=$.ajax({
                 type:"POST",
-                url:"/user/login",
+                url:" http://localhost:3000/user/login",
                 processData:false,
                 contentType: 'application/json',
-                data:request.user,
+                data:user,
                 dataType: "json",
             }).done(function(data){
                 console.log("data is successfully send from background script to server"+data);
@@ -26,7 +27,7 @@ chrome.runtime.onMessage.addListener(
                 console.log("error in sending data",statusCode);
                 console.log(err);
             });
-            console.log(request.user);
+            console.log(user);
             senderResponse({msg:"background script received msg successfully"});
             return true;
         }
@@ -40,13 +41,14 @@ chrome.runtime.onMessage.addListener(
     function(request,sender,senderResponse){
         if(request.NewUser!=null)
         {
-            sampleData=request.NewUser;
-            jqxhr=$.ajax({
+             var newUser=JSON.stringify(request.NewUser);
+             console.log("data"+newUser);
+            jxhr=$.ajax({
                 type:"POST",
-                url:"/user/signup",
+                url:" http://localhost:3000/user/signup",
                 processData:false,
                 contentType: 'application/json',
-                data:sampleData,
+                data:newUser,
                 dataType: "json",
             }).done(function(data){
                 console.log("data is successfully send from background script to server"+data);
@@ -55,7 +57,7 @@ chrome.runtime.onMessage.addListener(
                 console.log("error in sending data",statusCode);
                 console.log(err);
             });
-            console.log(sampleData);
+            console.log(newUser);
             senderResponse({msg:"background script received msg successfully"});
             return true;
         }
