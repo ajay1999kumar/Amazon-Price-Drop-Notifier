@@ -28,7 +28,7 @@ chrome.runtime.onMessage.addListener(
                 console.log(err);
             });
             console.log(user);
-            senderResponse({msg:"background script received msg successfully"});
+            senderResponse({msg:"background script received msg successfully",user:user});
             return true;
         }
     }
@@ -58,7 +58,7 @@ chrome.runtime.onMessage.addListener(
                 console.log(err);
             });
             console.log(newUser);
-            senderResponse({msg:"background script received msg successfully"});
+            senderResponse({msg:"background script received msg successfully",newUser:newUser});
             return true;
         }
     }

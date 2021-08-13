@@ -26,9 +26,9 @@ amazone.config([
     
       $stateProvider
         .state('home', {
-          url: '/',
+          url: '/home',
           templateUrl: '../html/home.html',
-          controller: 'MainCtrl'
+          controller: 'MainController'
         })
         .state('login', {
           url: '/login',
@@ -45,9 +45,14 @@ amazone.config([
     }]);
 
     
+    amazone.controller('MainController',['$scope','$state',function($scope,$state){
+      
+
+      
+    }])
 
 
-    amazone.controller('SignupController',['$scope',function($scope){
+    amazone.controller('SignupController',['$scope','$state',function($scope,$state){
       
 
       $scope.NewUserData=function(name,pass,email){
@@ -60,12 +65,16 @@ amazone.config([
         
         chrome.runtime.sendMessage({NewUser:NewUser},function(response){
           console.log(response.msg);
+          if(response.newUser!=null)
+          {
+            $state.go("login");
+          }
         })
 
       };
     }])
 
-    amazone.controller('LoginController',['$scope',function($scope){
+    amazone.controller('LoginController',['$scope','$state',function($scope,$state){
       
 
       $scope.userData=function(email,pass){
@@ -76,6 +85,10 @@ amazone.config([
         
         chrome.runtime.sendMessage({user:user},function(response){
           console.log(response.msg);
+          if(response.user!=null)
+          {
+            $state.go("home");
+          }
         })
         
       };
