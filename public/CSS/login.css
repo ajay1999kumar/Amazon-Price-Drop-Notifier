@@ -8,49 +8,72 @@
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #F5F5F5;
   max-width: 360px;
   margin: 0 auto 100px;
-  padding: 45px;
+  padding-left: 45px;
+  padding-right: 45px;
+  padding-bottom: 45px;
+  padding-top: 15px;
   text-align: center;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+.form h2{
+   font-size: 22px;
+   margin-bottom: 25px;
+   font-style: italic;
+   font-family:  Georgia, serif;
+   color: #303030;
+}
 .form input {
   font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
+  background: #FFFFFF;
   width: 100%;
-  border: 0;
+  border: 2px solid #dbd3d3;
+  border-radius: 10px;
+  box-shadow: none;
+  color: #2e2929;
   margin: 0 0 15px;
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
 }
+.form input:focus {
+  outline: none;
+  border: 2px solid  #449ecf80;
+}
 .form button {
   font-family: "Roboto", sans-serif;
-  text-transform: uppercase;
-  outline: 0;
-  background: #4CAF50;
+  font-weight:bold;
+  background:#6194af;
   width: 100%;
-  border: 0;
+  border: 1px solid #c2e4b9;
+  border-radius: 10px;
+  box-shadow: none;
+  margin-top: 10px;
   padding: 15px;
   color: #FFFFFF;
-  font-size: 14px;
+  font-size: 16px;
   -webkit-transition: all 0.3 ease;
   transition: all 0.3 ease;
   cursor: pointer;
 }
 .form button:hover,.form button:active,.form button:focus {
-  background: #43A047;
+  background: #537c92;
 }
 .form .message {
   margin: 15px 0 0;
-  color: #b3b3b3;
+  color: #303030;
   font-size: 12px;
+  font-weight: bolder;
+  
 }
 .form .message a {
-  color: #4CAF50;
+  font-style: normal;
+  margin-left: 3px;
+  color: #D62027;
   text-decoration: none;
+  font-size: 13px;
 }
 
 .container {
@@ -76,7 +99,7 @@
   color: #1a1a1a;
 }
 .container .info span {
-  color: #4d4d4d;
+  color: #535355;
   font-size: 12px;
 }
 .container .info span a {
@@ -87,11 +110,11 @@
   color: #EF3B3A;
 }
 body {
-  background: #76b852; /* fallback for old browsers */
-  background: -webkit-linear-gradient(right, #76b852, #8DC26F);
-  background: -moz-linear-gradient(right, #76b852, #8DC26F);
-  background: -o-linear-gradient(right, #76b852, #8DC26F);
-  background: linear-gradient(to left, #76b852, #8DC26F);
+  background: #5388a5; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #5388a5,  #41AAE180);
+  background: -moz-linear-gradient(right,  #41AAE180,#5388a5);
+  background: -o-linear-gradient(right,  #41AAE180,#5388a5);
+  background: linear-gradient(to left,#41AAE180, #5388a5, #41AAE180);
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      

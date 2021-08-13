@@ -64,6 +64,3 @@ chrome.runtime.onMessage.addListener(
     }
     
 );
-
-// sending data(post request) from background to server =============================================
-

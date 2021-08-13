@@ -18,8 +18,6 @@ var user={
  password
 }
 
-
-
 let amazone = angular.module("amazonextension", ['ui.router']);
 amazone.config([
     '$stateProvider',
@@ -29,17 +27,17 @@ amazone.config([
       $stateProvider
         .state('home', {
           url: '/',
-          templateUrl: '/home.html',
+          templateUrl: '../html/home.html',
           controller: 'MainCtrl'
         })
         .state('login', {
           url: '/login',
-          templateUrl: '/login.html',
+          templateUrl: '../html/login.html',
           controller: 'LoginController'
         })
         .state('signup', {
           url: '/signup',
-          templateUrl: '/signUp.html',
+          templateUrl: '../html/signUp.html',
           controller: 'SignupController'
         });
     
@@ -75,10 +73,10 @@ amazone.config([
         user.password=pass;
        
         console.log(user);
-
+        
         chrome.runtime.sendMessage({user:user},function(response){
           console.log(response.msg);
         })
-
+        
       };
     }])

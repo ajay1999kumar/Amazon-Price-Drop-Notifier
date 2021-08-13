@@ -11,8 +11,8 @@
             ],
             "js":[
                
-                "jquery.js",
-                "popup.js"
+                "./public/JS/jquery.js",
+                "./public/JS/popup.js"
             ]
         }
     ],
@@ -26,20 +26,20 @@
     ],
     "background":{
         "scripts":[
-            "jquery.js",
-            "background.js",
+            "./public/JS/jquery.js",
+            "./public/JS/background.js",
             "newtab.js"
         ]
     },
     "icons":{
 
-        "16":"amazon_icon_16.png",
-        "48":"amazon_icon_48.png",
-        "128":"amazon_icon_128.png"
+        "16":"./assets/amazon_icon_16.png",
+        "48":"./assets/amazon_icon_48.png",
+        "128":"./assets/amazon_icon_128.png"
 
     },
     "browser_action":{
-        "default_icon":"amazon_icon_16.png"
+        "default_icon":"./assets/amazon_icon_16.png"
     },
     "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://cdnjs.cloudflare.com; object-src 'self'"
     

@@ -1,14 +1,15 @@
 const express=require('express');
 const cors=require('cors');
 const bodyParser = require("body-parser");
-const user = require("./databaseconnection/routes/user"); 
-const InitiateMongoServer = require("./databaseconnection/db");
+const user = require("./api/routes/user"); 
+const InitiateMongoServer = require("./api/db");
 
 
 InitiateMongoServer();
 
 const app=express();
 
+app.use(express.static('public'));
 app.use(cors());
 // app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));

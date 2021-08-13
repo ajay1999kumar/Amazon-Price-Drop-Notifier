@@ -122,11 +122,11 @@ router.post(
         }
       };
 
-      jwt.sign(
+       jwt.sign(
         payload,
-        "secret",
+        "randomString",
         {
-          expiresIn: 3600
+          expiresIn: 10000
         },
         (err, token) => {
           if (err) throw err;
@@ -135,6 +135,8 @@ router.post(
           });
         }
       );
+    res.location('/');
+    res.redirect('/');
     } catch (e) {
       console.error(e);
       res.status(500).json({
