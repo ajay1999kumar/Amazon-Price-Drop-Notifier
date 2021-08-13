@@ -124,7 +124,7 @@ router.post(
 
        jwt.sign(
         payload,
-        "randomString",
+        "secret",
         {
           expiresIn: 10000
         },
@@ -135,8 +135,6 @@ router.post(
           });
         }
       );
-    res.location('/');
-    res.redirect('/');
     } catch (e) {
       console.error(e);
       res.status(500).json({
