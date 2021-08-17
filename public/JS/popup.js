@@ -1,9 +1,9 @@
 console.log("content file is running");
 
-
 var username;
 var email;
 var password;
+var url
 
 var NewUser={
    username,
@@ -18,6 +18,7 @@ var user={
  password
 }
 
+
 let amazone = angular.module("amazonextension", ['ui.router']);
 amazone.config([
     '$stateProvider',
@@ -28,6 +29,11 @@ amazone.config([
         .state('home', {
           url: '/home',
           templateUrl: '../html/home.html',
+          controller: 'MainController'
+        })
+        .state('userproducts', {
+          url: '/userproducts',
+          templateUrl: '../html/userproduct.html',
           controller: 'MainController'
         })
         .state('login', {
@@ -45,16 +51,12 @@ amazone.config([
     }]);
 
     
-    amazone.controller('MainController',['$scope','$state',function($scope,$state){
-      
 
+    amazone.controller('MainController',['$scope','$state',function($scope,$state){
       
     }])
 
-
     amazone.controller('SignupController',['$scope','$state',function($scope,$state){
-      
-
       $scope.NewUserData=function(name,pass,email){
       NewUser.username=name,
       NewUser.email=email,
@@ -64,8 +66,8 @@ amazone.config([
 
         
         chrome.runtime.sendMessage({NewUser:NewUser},function(response){
-          console.log(response.msg);
-          if(response.newUser!=null)
+          console.log(response);
+          if(response.token!=null)
           {
             $state.go("login");
           }
@@ -75,7 +77,17 @@ amazone.config([
     }])
 
     amazone.controller('LoginController',['$scope','$state',function($scope,$state){
-      
+
+      $scope.isloggedin = ()=>{
+        console.log('ran $scope.onPopupInit function'); 
+        chrome.runtime.sendMessage({type:"isloggedin"},(res)=>{
+           console.log("responeeeeeeeeeeee:" + res);
+             if(res!= null){
+               $state.go("home");
+             }
+         });  
+      }
+      $scope.isloggedin();
 
       $scope.userData=function(email,pass){
         user.email=email;
@@ -84,8 +96,7 @@ amazone.config([
         console.log(user);
         
         chrome.runtime.sendMessage({user:user},function(response){
-          console.log(response.msg);
-          if(response.user!=null)
+          if(response.token!=null)
           {
             $state.go("home");
           }
@@ -93,3 +104,27 @@ amazone.config([
         
       };
     }])
+
+    amazone.controller('MainController',['$scope','$state',function($scope,$state){
+      $scope.TrackPrice = ()=>{
+        chrome.runtime.sendMessage( {type:"Scrap"},
+        (res)=>{
+          console.log("Checking price drop response: ", res);
+          if(res.error){
+            let em = res.error;
+            console.log('Error is :',em);
+          }
+          else {
+            $state.go("userproducts");
+          }
+        });
+      }
+  }])
+  
+
+
+
+
+
+
+ 

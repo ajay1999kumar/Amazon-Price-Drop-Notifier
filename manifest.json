@@ -12,12 +12,13 @@
             "js":[
                
                 "./public/JS/jquery.js",
-                "./public/JS/popup.js"
+                "./public/JS/content.js"
             ]
         }
     ],
     
     "permissions":[
+        "activeTab",
         "tabs",
         "https://www.amazon.in/*",
         "https://www.amazon.com/*"

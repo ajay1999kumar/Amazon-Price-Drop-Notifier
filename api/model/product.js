@@ -12,7 +12,7 @@ const trackSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  expectedPrice: {
+  currentPrice: {
     type: Number,
     required: true,
   },
@@ -20,11 +20,11 @@ const trackSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  creator: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Users",
-    required: true,
+  email: {
+    type: String,
+    required: true
   },
+  
 });
 
 module.exports = mongoose.model("Tracks", trackSchema);
