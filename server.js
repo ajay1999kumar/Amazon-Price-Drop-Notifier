@@ -2,6 +2,7 @@ const express=require('express');
 const cors=require('cors');
 const bodyParser = require("body-parser");
 const user = require("./api/routes/user"); 
+const product = require("./api/routes/product"); 
 const InitiateMongoServer = require("./api/db");
 
 
@@ -24,6 +25,7 @@ app.get('/',function(req,res){
 });
 
 app.use("/user", user);
+app.use("/product", product);
 
 app.listen(port,function(){
     console.log('server is started in port 3000...');

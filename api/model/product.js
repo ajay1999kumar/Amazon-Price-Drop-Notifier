@@ -1,14 +1,20 @@
 const mongoose = require("mongoose");
 
 const trackSchema = new mongoose.Schema({
-  productUrl: {
+  product_id: {
+    type: String,
+  },
+  product_asin: {
     type: String,
   },
   image: {
     type: String,
     required: true,
   },
-  name: {
+  product_link: {
+    type: String,
+  },
+  title: {
     type: String,
     required: true,
   },
@@ -24,7 +30,9 @@ const trackSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  
+  ispresent:{
+    type: Boolean,
+  }
 });
 
 module.exports = mongoose.model("Tracks", trackSchema);

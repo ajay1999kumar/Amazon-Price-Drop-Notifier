@@ -114,9 +114,6 @@ amazone.config([
             let em = res.error;
             console.log('Error is :',em);
           }
-          else {
-            $state.go("userproducts");
-          }
         });
       }
   }])

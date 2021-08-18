@@ -41,14 +41,6 @@ if (
         }
 
         try {
-        item["itemAddedDate"] = products[i]
-            .querySelector("#itemAddedDate_" + id)
-            .innerHTML.match(/\<\/span\>(.+)/)[1];
-        } catch (err) {
-        item["itemAddedDate"] = "";
-        }
-
-        try {
         item["asin"] = JSON.parse(
             products[i].getAttribute("data-reposition-action-params")
             ).itemExternalId.match(/ASIN:(.+?)\|/)[1];
@@ -59,9 +51,9 @@ if (
         }
         
     chrome.runtime.sendMessage({ type:"wishlist", data:wishlist},function(response){
-        console.log(response.msg);
+        console.log(response);
     })
     }
 
 
-
+    
