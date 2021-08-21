@@ -79,7 +79,7 @@ amazone.config([
     amazone.controller('LoginController',['$scope','$state',function($scope,$state){
 
       $scope.isloggedin = ()=>{
-        console.log('ran $scope.onPopupInit function'); 
+        console.log('ran $scope.islogedin function'); 
         chrome.runtime.sendMessage({type:"isloggedin"},(res)=>{
            console.log("responeeeeeeeeeeee:" + res);
              if(res!= null){
@@ -115,6 +115,15 @@ amazone.config([
             console.log('Error is :',em);
           }
         });
+      }
+      $scope.logout = ()=>{
+        console.log('ran $scope.islogedin function'); 
+        chrome.runtime.sendMessage({type:"logout_user"},(res)=>{
+           console.log("responeeeeeeeeeeee:" + res);
+             if(res== null){
+               $state.go("login");
+             }
+         });  
       }
   }])
   

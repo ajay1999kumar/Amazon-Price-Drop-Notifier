@@ -14,7 +14,14 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         sendResponse(getStorageItem("user"));
         return true;
     }
-  }
+
+    if(msg.type=="logout_user"){
+        console.log("logout running in background.js");
+        window.localStorage.clear();
+        sendResponse(getStorageItem("user"));
+        return true;
+    } 
+}
 );
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if(msg.type=="Scrap"){
