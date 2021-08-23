@@ -3,8 +3,16 @@ const router = express.Router();
 const product = require("../model/product");
 
 const saveProducts = async (req, res, next) => {
-    let wishlist = req.body.data;
-    let email= req.body.email.user.email;
+ 
+
+    const{
+        wishlist,
+        user
+    }=req.body;
+
+   const email=user.email;
+
+   
     var resultArray = [];
     
 
@@ -24,7 +32,7 @@ const saveProducts = async (req, res, next) => {
       let item = wishlist[i];
 
       try{
-        let product_exist= await product.findone(
+        let product_exist= await product.findOne(
             { product_id: item.id, email: email}
         );
         if(product_exist){

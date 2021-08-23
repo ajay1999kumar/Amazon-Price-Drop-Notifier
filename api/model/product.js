@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const trackSchema = new mongoose.Schema({
+const ProductSchema =  mongoose.Schema({
   product_id: {
     type: String,
   },
@@ -35,4 +35,4 @@ const trackSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model("Tracks", trackSchema);
+module.exports = mongoose.model("product", ProductSchema);

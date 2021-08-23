@@ -81,8 +81,9 @@ amazone.config([
       $scope.isloggedin = ()=>{
         console.log('ran $scope.islogedin function'); 
         chrome.runtime.sendMessage({type:"isloggedin"},(res)=>{
-           console.log("responeeeeeeeeeeee:" + res);
-             if(res!= null){
+          let response=JSON.parse(res);
+           console.log("responeeeeeeeeeeee:" + response.email);
+             if(response!= null){
                $state.go("home");
              }
          });  
@@ -109,6 +110,7 @@ amazone.config([
       $scope.TrackPrice = ()=>{
         chrome.runtime.sendMessage( {type:"Scrap"},
         (res)=>{
+         
           console.log("Checking price drop response: ", res);
           if(res.error){
             let em = res.error;
@@ -119,8 +121,9 @@ amazone.config([
       $scope.logout = ()=>{
         console.log('ran $scope.islogedin function'); 
         chrome.runtime.sendMessage({type:"logout_user"},(res)=>{
-           console.log("responeeeeeeeeeeee:" + res);
-             if(res== null){
+          let response=JSON.parse(res);
+           console.log("responeeeeeeeeeeee:" + response);
+             if(response== null){
                $state.go("login");
              }
          });  

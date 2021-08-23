@@ -28,6 +28,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         chrome.tabs.create({
             url: "https://www.amazon.in/gp/registry/wishlist?",
           });
+          sendResponse("tab created");
          return true;
     }
   }
@@ -108,21 +109,33 @@ chrome.runtime.onMessage.addListener(
     function(request,sender,senderResponse){
         if(request.type=="wishlist")
         {
+           
+            console.log(typeof(getStorageItem("user")));
+            var wishlist;
+            var user;
+            var product={
+                wishlist:request.data,
+                user:JSON.parse(getStorageItem("user"))
+                
+            }
+
+            var product=JSON.stringify(product);
             
             jxhr=$.ajax({
                 type:"POST",
                 url:" http://localhost:3000/product/wishlist",
                 processData:false,
                 contentType: 'application/json',
-                data:{data: request.data, email: getStorageItem("user") },
+                data:product,
                 dataType: "json",
             }).done(function(data){
                 sendResponse(data);
                 console.log("data is successfully send from background script to wishlist server"+data);
             })
             .fail(function(xhr,statusCode,err){
-                console.log("error in sending data",statusCode);
+                console.log("error in sending datas",statusCode);
                 console.log(err);
+                
             });
             console.log(request.data);
             return true;
@@ -139,7 +152,7 @@ function getStorageItem(varName) {
   function setStorageItem(varName, data) {
     console.log("varName: ", varName);
     if (varName != "searchPageData") {
-      console.log("data", data);
+      console.log("data"+ data);
       window.localStorage.setItem(varName, JSON.stringify(data));
     }
   }
