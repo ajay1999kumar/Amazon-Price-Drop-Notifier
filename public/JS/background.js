@@ -106,7 +106,7 @@ chrome.runtime.onMessage.addListener(
 
 
 chrome.runtime.onMessage.addListener(
-    function(request,sender,senderResponse){
+    function(request,sender,sendResponse){
         if(request.type=="wishlist")
         {
            

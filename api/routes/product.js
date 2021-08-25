@@ -11,6 +11,7 @@ const saveProducts = async (req, res, next) => {
     }=req.body;
 
    const email=user.email;
+  
 
    
     var resultArray = [];
@@ -27,23 +28,39 @@ const saveProducts = async (req, res, next) => {
         res.status(500).send("Error in process");
      }
 
+     console.log("wishlist in server");
+     console.log(wishlist );
+     
+
 ///////////////////////////////////////////////////////////Add new item of user wishlist or update item price of user wishlist/////////
     for (let i = 0; i < wishlist.length; i++) {
       let item = wishlist[i];
+      console.log("item");
+      console.log(item);
 
       try{
         let product_exist= await product.findOne(
             { product_id: item.id, email: email}
         );
+       
         if(product_exist){
+            console.log("product_exist");
+            console.log(product_exist);
             let oldCost = parseFloat(product_exist.currentPrice);
             let newCost = parseFloat(item.price);
+            console.log("oldCost ");
+            console.log(oldCost);
+            console.log("newCost ");
+            console.log(newCost );
+            
             if(oldCost<newCost){
                 await product.updateOne(
                     { product_id: item.id},
-                    { email: user_email},
+                    { email: email},
+                    [
                     { $set: {currentPrice: newCost}},
                     { $set: {ispresent: true} }
+                    ]
                 );
                 resultArray.push(item);
     
@@ -51,7 +68,7 @@ const saveProducts = async (req, res, next) => {
             else{
                 await product.updateOne(
                     { product_id: item.id},
-                    { email: user_email},
+                    { email: email},
                     { $set: {ispresent: true} }
                 );
             }
@@ -65,10 +82,12 @@ const saveProducts = async (req, res, next) => {
         let currentPrice=item.price;
         let actualPrice=item.price;
         let newProduct = new product({product_id,product_asin,image,product_link,title,currentPrice,actualPrice,email});
+        console.log("newProduct");
+        console.log(newProduct);
         await newProduct.save();
         } catch (err) {
         console.log(err.message);
-        res.status(500).send("Error in Saving");
+        res.status(501).send("Error in Saving");
         }
     }
 
@@ -77,7 +96,7 @@ const saveProducts = async (req, res, next) => {
         product.deleteMany( {ispresent: false, email: email});
      } catch (e) {
         console.log(e.message);
-        res.status(500).send("Error in process while deleting");
+        res.status(502).send("Error in process while deleting");
     }
 
     /////////////////////////////////////////////sending back  items if there price has dropped//////////////////////////////////////// 
