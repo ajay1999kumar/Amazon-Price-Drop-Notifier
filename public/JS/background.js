@@ -1,4 +1,3 @@
-
 console.log("background file is running")
 
 
@@ -67,7 +66,6 @@ chrome.runtime.onMessage.addListener(
 );
 
 ////////////////////////////////////////////////////////////============Receiving Newuser from popup.js======================//////////////////////////////////////////////////////
-
 chrome.runtime.onMessage.addListener(
     function(request,sender,senderResponse){
         if(request.NewUser!=null)
