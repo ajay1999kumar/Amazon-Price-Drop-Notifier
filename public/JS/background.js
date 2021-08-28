@@ -6,7 +6,7 @@ var jqxhr;
 var jxhr;
 
 
-//Receiving existing user from popup.js=============================================
+/////////////////////////////////////////===============================Receiving messages from popup.js and sending some common info ==============///////////////////////////////
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if(msg.type=="isloggedin"){
         console.log("isloggedin running in background.js");
@@ -21,9 +21,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
         sendResponse(getStorageItem("user"));
         return true;
     } 
-}
-);
-chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+    
     if(msg.type=="Scrap"){
         chrome.tabs.create({
             url: "https://www.amazon.in/gp/registry/wishlist?",
@@ -31,9 +29,10 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
           sendResponse("tab created");
          return true;
     }
-  }
+}
 );
 
+///////////////////////////////////////////////////////////============Receiving existing user from popup.js======================//////////////////////////////////////////////////////
 chrome.runtime.onMessage.addListener(
     function(request,sender,senderResponse){
         if(request.user!=null)
@@ -67,7 +66,7 @@ chrome.runtime.onMessage.addListener(
     
 );
 
-//Receiving new user from popup.js=============================================
+////////////////////////////////////////////////////////////============Receiving Newuser from popup.js======================//////////////////////////////////////////////////////
 
 chrome.runtime.onMessage.addListener(
     function(request,sender,senderResponse){
@@ -103,14 +102,11 @@ chrome.runtime.onMessage.addListener(
 );
 
 
-//Receiving new user from content.js=============================================
-
+/////////////////////////////////////////////////////========Receiving item list from content.js and sending to "/product/wishlist" server========////////////////////////////////////
 chrome.runtime.onMessage.addListener(
     function(request,sender,senderResponse){
         if(request.type=="wishlist")
         {
-           
-          
             var wishlist;
             var user;
             var product={
@@ -118,10 +114,7 @@ chrome.runtime.onMessage.addListener(
                 user:JSON.parse(getStorageItem("user"))
                 
             }
-
             var product=JSON.stringify(product);
-           
-
             jxhr=$.ajax({
                 type:"POST",
                 url:" http://localhost:3000/product/wishlist",
@@ -148,23 +141,17 @@ chrome.runtime.onMessage.addListener(
     
 );
 
-
+////////////////////////////////////////=========receiving droped product list from content.js and sending to "/product/message" server======////////////////////////////////////
 chrome.runtime.onMessage.addListener(
     function(request,sender,senderResponse){
         if(request.type=="price_dropped")
         {
-           
-
          var droppedItems={
             items:request.price_dropped_items,
             user:JSON.parse(getStorageItem("user"))
             
         }
-
-
          var droppedItems=JSON.stringify(droppedItems);
-         
-            
             jxhr=$.ajax({
                 type:"POST",
                 url:" http://localhost:3000/product/message",
@@ -191,8 +178,9 @@ chrome.runtime.onMessage.addListener(
     
 );
 
-
-function getStorageItem(varName) {
+/////////////////////////////////////////////////////////////////=================storage functions==================///////////////////////////////////////////////////////////////////////////
+ 
+  function getStorageItem(varName) {
     return JSON.parse(localStorage.getItem(varName));
   }
   
