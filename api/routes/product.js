@@ -4,23 +4,17 @@ const product = require("../model/product");
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 
-// post request to save whishlist in server
+//////////////////////////////////////////=========================================== post request to save whishlist in server=================/////////////////////////////////////
 const saveProducts = async (req, res, next) => {
- 
-
-    const{
+   const{
         wishlist,
         user
     }=req.body;
-
    const email=user.email;
-  
-
-   
-    var resultArray = [];
+   var resultArray = [];
     
 
-/////////////////////////////////////////////////////////update presentstatus of item in db////////////////////////////////////
+                 //////////////////////////////////=================update presentstatus of item in db==============================/////////////////////////////////
     try {
         product.updateMany(
            { email: email},
@@ -30,26 +24,17 @@ const saveProducts = async (req, res, next) => {
         console.log(e.message);
         res.status(500).send("Error in process");
      }
-
-    
-     
-
-///////////////////////////////////////////////////////////Add new item of user wishlist or update item price of user wishlist/////////
+ 
+                   ///////////////////////==================Add new item of user wishlist or update item price of user wishlist============/////////////////////////
     for (let i = 0; i < wishlist.length; i++) {
       let item = wishlist[i];
-     
-
       try{
         let product_exist= await product.findOne(
             { product_id: item.id, email: email}
         );
-       
         if(product_exist){
-           
             let oldCost = parseFloat(product_exist.currentPrice);
             let newCost = parseFloat(item.price);
-            
-            
             if(oldCost<newCost){
                 await product.updateOne(
                     { product_id: item.id},
@@ -60,7 +45,6 @@ const saveProducts = async (req, res, next) => {
                     ]
                 );
                 resultArray.push(item);
-    
             }
             else{
                 await product.updateOne(
@@ -79,15 +63,15 @@ const saveProducts = async (req, res, next) => {
         let currentPrice=item.price;
         let actualPrice=item.price;
         let newProduct = new product({product_id,product_asin,image,product_link,title,currentPrice,actualPrice,email});
-        
         await newProduct.save();
-        } catch (err) {
+        }
+      catch (err) {
         console.log(err.message);
         res.status(500).send("Error in Saving");
-        }
+      }
     }
 
-   //////////////////////////////////////////////////////////////delete all item of particular user if it is nt currently present in his/her wishlist//////
+                  /////////////////////////=============delete all item of particular user if it is nt currently present in his/her wishlist============////////////
     try {
         product.deleteMany( {ispresent: false, email: email});
      } catch (e) {
@@ -95,60 +79,46 @@ const saveProducts = async (req, res, next) => {
         res.status(500).send("Error in process while deleting");
     }
 
-    /////////////////////////////////////////////sending back  items if there price has dropped//////////////////////////////////////// 
-
+                   //////////////////////////===================sending back  items if there price has dropped==========================//////////////////////////// 
     try{
         await res.send(resultArray);
       }catch(e){
         console.log(e);
       }
 
-      await next();
+     await next();
 }
-  router.post("/wishlist", saveProducts);
+router.post("/wishlist", saveProducts);
 
 
-  // post request to send message of price drop items
 
+//////////////////////////////======================================== post request to send message of price drop items=========================////////////////////////////////////
   const sendMessages=async(req,res,next)=>{
-
     const {
         items,
         user
           }=req.body;
-
-    
-    
     mail(user.email,items);
-   
   }
-
+  
+  
   function mail(email,items)
   {
     console.log('hello there!!!');
     console.log(email);
     console.log(items);
-
     let products=[];
-
-    for(let i=0;i<items.length;i++)
-    {
+    for(let i=0;i<items.length;i++){
         let item=items[i];
-
         var pdct={
             title:item.title,
             price:item.price,
             link:item.link
-
         }
-
         products.push(pdct);
-
     }
-
     products=JSON.stringify(products);
-
-
+ 
     var transporter = nodemailer.createTransport(smtpTransport({
         service: 'gmail',
         host: 'smtp.gmail.com',
