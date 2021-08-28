@@ -103,14 +103,14 @@ chrome.runtime.onMessage.addListener(
 );
 
 
-
+//Receiving new user from content.js=============================================
 
 chrome.runtime.onMessage.addListener(
-    function(request,sender,sendResponse){
+    function(request,sender,senderResponse){
         if(request.type=="wishlist")
         {
            
-            console.log(typeof(getStorageItem("user")));
+          
             var wishlist;
             var user;
             var product={
@@ -120,7 +120,8 @@ chrome.runtime.onMessage.addListener(
             }
 
             var product=JSON.stringify(product);
-            
+           
+
             jxhr=$.ajax({
                 type:"POST",
                 url:" http://localhost:3000/product/wishlist",
@@ -129,15 +130,61 @@ chrome.runtime.onMessage.addListener(
                 data:product,
                 dataType: "json",
             }).done(function(data){
-                sendResponse(data);
-                console.log("data is successfully send from background script to wishlist server"+data);
+                 var updatedItems=JSON.stringify(data);
+                senderResponse(updatedItems);
+                console.log("data is successfully send from background script to wishlist server");
+                 console.log(data);
+                 
             })
             .fail(function(xhr,statusCode,err){
                 console.log("error in sending datas",statusCode);
                 console.log(err);
                 
             });
-            console.log(request.data);
+          
+            return true;
+        }
+    }
+    
+);
+
+
+chrome.runtime.onMessage.addListener(
+    function(request,sender,senderResponse){
+        if(request.type=="price_dropped")
+        {
+           
+
+         var droppedItems={
+            items:request.price_dropped_items,
+            user:JSON.parse(getStorageItem("user"))
+            
+        }
+
+
+         var droppedItems=JSON.stringify(droppedItems);
+         
+            
+            jxhr=$.ajax({
+                type:"POST",
+                url:" http://localhost:3000/product/message",
+                processData:false,
+                contentType: 'application/json',
+                data:droppedItems,
+                dataType: "json",
+            }).done(function(data){
+             
+                senderResponse("message sent");
+                console.log("message is sent successfully");
+                
+                 
+            })
+            .fail(function(xhr,statusCode,err){
+                console.log("error in sending message",statusCode);
+                console.log(err);
+                
+            });
+            
             return true;
         }
     }

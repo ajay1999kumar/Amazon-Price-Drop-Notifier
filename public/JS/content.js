@@ -51,7 +51,18 @@ if (
         }
         
     chrome.runtime.sendMessage({ type:"wishlist", data:wishlist},function(response){
-        console.log(response);
+        console.log("got response from server after saving products");
+        
+        var pdcts=JSON.parse(response);
+        
+        if(pdcts!=null)
+        {
+            chrome.runtime.sendMessage({type:"price_dropped",price_dropped_items:pdcts},function(response){
+
+                console.log(response);
+            })
+        }
+        
     })
     }
 
