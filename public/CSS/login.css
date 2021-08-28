@@ -25,6 +25,13 @@
    font-family:  Georgia, serif;
    color: #303030;
 }
+.form p{
+  font-style: italic;
+  color: #D62027;
+  margin-Top: -25px;
+  margin-bottom: 25px;
+  font-size: 10px;
+}
 .form input {
   font-family: "Roboto", sans-serif;
   background: #FFFFFF;
