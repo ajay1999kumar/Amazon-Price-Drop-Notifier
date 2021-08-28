@@ -62,15 +62,13 @@ amazone.config([
       NewUser.email=email,
       NewUser.password=pass
        
-        console.log(NewUser);
-
-        
-        chrome.runtime.sendMessage({NewUser:NewUser},function(response){
-          console.log(response);
-          if(response.token!=null)
-          {
-            $state.go("login");
-          }
+     console.log(NewUser);
+     chrome.runtime.sendMessage({NewUser:NewUser},function(response){
+             console.log(response);
+             if(response.token!=null)
+             {
+               $state.go("login");
+             }
         })
 
       };
@@ -82,20 +80,19 @@ amazone.config([
         console.log('ran $scope.islogedin function'); 
         chrome.runtime.sendMessage({type:"isloggedin"},(res)=>{
           let response=JSON.parse(res);
-           console.log("responeeeeeeeeeeee:" + response.email);
+           console.log("responeeeeeeeeeeee:" + response);
              if(response!= null){
                $state.go("home");
              }
          });  
       }
+      
       $scope.isloggedin();
 
       $scope.userData=function(email,pass){
         user.email=email;
         user.password=pass;
-       
         console.log(user);
-        
         chrome.runtime.sendMessage({user:user},function(response){
           if(response.token!=null)
           {
@@ -110,7 +107,6 @@ amazone.config([
       $scope.TrackPrice = ()=>{
         chrome.runtime.sendMessage( {type:"Scrap"},
         (res)=>{
-         
           console.log("Checking price drop response: ", res);
           if(res.error){
             let em = res.error;
@@ -118,6 +114,7 @@ amazone.config([
           }
         });
       }
+      
       $scope.logout = ()=>{
         console.log('ran $scope.islogedin function'); 
         chrome.runtime.sendMessage({type:"logout_user"},(res)=>{
