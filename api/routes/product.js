@@ -34,6 +34,7 @@ const saveProducts = async (req, res, next) => {
         );
         if(product_exist){
             let oldCost = parseFloat(product_exist.currentPrice);
+            let actualcost=parseFloat(product_exist.actualPrice);
             let newCost = parseFloat(item.price);
             if(oldCost<newCost){
                 await product.updateOne(
@@ -44,7 +45,7 @@ const saveProducts = async (req, res, next) => {
                     { $set: {ispresent: true} }
                     ]
                 );
-                resultArray.push(item);
+                //resultArray.push(item);
             }
             else{
                 await product.updateOne(
@@ -52,6 +53,15 @@ const saveProducts = async (req, res, next) => {
                     { email: email},
                     { $set: {ispresent: true} }
                 );
+            }
+            if(actualcost>oldCost || actualcost>newCost){
+              var newitem={};
+              newitem["title"]=item.title;
+              newitem["oldprice"]=actualcost;
+              if(oldCost<newCost)newitem["price"]=oldCost;
+              else newitem["price"]=newCost;
+              newitem["link"]=item.link;
+              resultArray.push(newitem);
             }
             continue;
         }
@@ -81,7 +91,7 @@ const saveProducts = async (req, res, next) => {
 
                    //////////////////////////===================sending back  items if there price has dropped==========================//////////////////////////// 
     try{
-        await res.send(resultArray);
+      await res.send(resultArray);
       }catch(e){
         console.log(e);
       }
@@ -112,6 +122,7 @@ router.post("/wishlist", saveProducts);
         let item=items[i];
         var pdct={
             title:item.title,
+            oldprice:item.oldprice,
             price:item.price,
             link:item.link
         }

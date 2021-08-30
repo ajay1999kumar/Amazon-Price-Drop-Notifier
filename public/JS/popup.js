@@ -97,7 +97,7 @@ amazone.controller('SignupController',['$scope','$state',function($scope,$state)
 ///////////////////////////////////////////////////////===================Logeed In Controller==============================///////////////////////////////////////////////////////
 amazone.controller('LoginController',['$scope','$state',function($scope,$state){
   $scope.isloggedin = ()=>{
-     console.log('ran $scope.islogedin function'); 
+     //console.log('ran $scope.islogedin function'); 
      chrome.runtime.sendMessage({type:"isloggedin"},(res)=>{
        let response=JSON.parse(res);
         //console.log("responeeeeeeeeeeee:" + response);

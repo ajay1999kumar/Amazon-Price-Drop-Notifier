@@ -35,7 +35,7 @@ if (
         try {
             
         // item["price"] = products[i].querySelector('.itemUsedAndNewPrice').innerText;
-            item["price"] = products[i].getAttribute("data-price");
+        item["price"] = products[i].getAttribute("data-price");
         } catch (err) {
         item["price"] = "";
         }
@@ -52,15 +52,19 @@ if (
         
     chrome.runtime.sendMessage({ type:"wishlist", data:wishlist},function(response){
         console.log("got response from server after saving products");
-        
+        //console.log("res"+response);
+        var check =JSON.stringify([]);
+        //console.log("check"+check);
         var pdcts=JSON.parse(response);
-        
-        if(pdcts!=null)
-        {
+        //console.log("pdcts: "+pdcts);
+        if(response!=check){
+            alert("There's price drop in few products, check your mail to get more info about produscts");
             chrome.runtime.sendMessage({type:"price_dropped",price_dropped_items:pdcts},function(response){
-
                 console.log(response);
             })
+        }
+        else{
+            alert("There's no price drop in products present in your wishlist");
         }
         
     })

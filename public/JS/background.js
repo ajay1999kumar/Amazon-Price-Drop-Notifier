@@ -22,6 +22,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     } 
     
     if(msg.type=="Scrap"){
+        console.log("Scrap running in background.js");
         chrome.tabs.create({
             url: "https://www.amazon.in/gp/registry/wishlist?",
           });
@@ -37,6 +38,7 @@ chrome.runtime.onMessage.addListener(
         if(request.user!=null)
         {   
             var user=JSON.stringify(request.user);
+            console.log("user"+ user);
             jqxhr=$.ajax({
                 type:"POST",
                 url:" http://localhost:3000/user/login",
@@ -57,7 +59,7 @@ chrome.runtime.onMessage.addListener(
                 console.log("error in sending data",statusCode);
                 console.log(err);
             });
-            console.log(user);
+            //console.log(user);
             
             return true;
         }
@@ -71,7 +73,7 @@ chrome.runtime.onMessage.addListener(
         if(request.NewUser!=null)
         {
              var newUser=JSON.stringify(request.NewUser);
-             console.log("data"+newUser);
+             console.log("newuser"+ newUser);
             jxhr=$.ajax({
                 type:"POST",
                 url:" http://localhost:3000/user/signup",
@@ -84,7 +86,6 @@ chrome.runtime.onMessage.addListener(
                 dataType: "json",
             }).done(function(data){
                 console.log("response: ", data.token);
-                setStorageItem("user", newUser);
                 senderResponse(data);
                 console.log("data is successfully send from background script to  signup server"+newUser);
             })
@@ -92,7 +93,7 @@ chrome.runtime.onMessage.addListener(
                 console.log("error in sending data",statusCode);
                 console.log(err);
             });
-            console.log(newUser);
+            //console.log(newUser);
             return true;
         }
     }
@@ -113,6 +114,7 @@ chrome.runtime.onMessage.addListener(
                 
             }
             var product=JSON.stringify(product);
+            console.log("scraped Product" + product);
             jxhr=$.ajax({
                 type:"POST",
                 url:" http://localhost:3000/product/wishlist",
@@ -121,10 +123,10 @@ chrome.runtime.onMessage.addListener(
                 data:product,
                 dataType: "json",
             }).done(function(data){
-                 var updatedItems=JSON.stringify(data);
+                var updatedItems=JSON.stringify(data);
                 senderResponse(updatedItems);
+                console.log("updatedItems" + updatedItems);
                 console.log("data is successfully send from background script to wishlist server");
-                 console.log(data);
                  
             })
             .fail(function(xhr,statusCode,err){
@@ -150,6 +152,7 @@ chrome.runtime.onMessage.addListener(
             
         }
          var droppedItems=JSON.stringify(droppedItems);
+         console.log("sending priced_droped_item to /product/message is ruuning in background server");
             jxhr=$.ajax({
                 type:"POST",
                 url:" http://localhost:3000/product/message",
@@ -158,16 +161,12 @@ chrome.runtime.onMessage.addListener(
                 data:droppedItems,
                 dataType: "json",
             }).done(function(data){
-             
                 senderResponse("message sent");
                 console.log("message is sent successfully");
-                
-                 
             })
             .fail(function(xhr,statusCode,err){
                 console.log("error in sending message",statusCode);
                 console.log(err);
-                
             });
             
             return true;
